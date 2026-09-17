@@ -8,6 +8,7 @@ import com.nourallah.saasapp.requests.CategoryRequest;
 import com.nourallah.saasapp.responses.CategoryResponse;
 import com.nourallah.saasapp.services.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
