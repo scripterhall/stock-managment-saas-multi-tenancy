@@ -3,6 +3,7 @@ package com.nourallah.saasapp.services.impl;
 import com.nourallah.saasapp.common.PageResponse;
 import com.nourallah.saasapp.entities.Category;
 import com.nourallah.saasapp.entities.Product;
+import com.nourallah.saasapp.exceptions.DuplicateResourceException;
 import com.nourallah.saasapp.mappers.ProductMapper;
 import com.nourallah.saasapp.repositories.CategoryRepository;
 import com.nourallah.saasapp.repositories.ProductRepository;
@@ -45,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         final Optional<Product> productOptional = productRepository.findById(id);
         if (productOptional.isEmpty()) {
             log.debug("No product found with id {}", id);
-            throw new RuntimeException("No product found with id " + id);
+            throw new EntityNotFoundException("No product found with id " + id);
         }
 
         // 1- check if product already exists
@@ -85,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
         final Optional<Product> productOptional = this.productRepository.findByReferenceIgnoreCase(reference);
         if (productOptional.isPresent()) {
             log.debug("Product with reference {} already exists", reference);
-            throw new RuntimeException("Product with reference " + reference + " already exists");
+            throw new DuplicateResourceException("Product with reference " + reference + " already exists");
         }
     }
 
@@ -93,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
         final Optional<Category> categoryOptional = this.categoryRepository.findById(categoryId);
         if(categoryOptional.isEmpty()) {
             log.debug("Category with id {} does not exist", categoryId);
-            throw new RuntimeException("Category with id " + categoryId + " does not exist");
+            throw new EntityNotFoundException("Category with id " + categoryId + " does not exist");
         }
     }
 }

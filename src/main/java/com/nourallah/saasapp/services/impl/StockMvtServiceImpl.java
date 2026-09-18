@@ -83,7 +83,7 @@ public class StockMvtServiceImpl implements StockMvtService {
         final Optional<Product> productOptional = this.productRepository.findById(productId);
         if (productOptional.isEmpty()) {
             log.debug("Product with id {} does not exists", productId);
-            throw new RuntimeException("Product with id " + productId + " does not exists");
+            throw new EntityNotFoundException("Product with id " + productId + " does not exists");
         }
     }
 }
