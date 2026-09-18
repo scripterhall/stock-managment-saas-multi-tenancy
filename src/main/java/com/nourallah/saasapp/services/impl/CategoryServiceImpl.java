@@ -2,6 +2,7 @@ package com.nourallah.saasapp.services.impl;
 
 import com.nourallah.saasapp.common.PageResponse;
 import com.nourallah.saasapp.entities.Category;
+import com.nourallah.saasapp.exceptions.DuplicateResourceException;
 import com.nourallah.saasapp.mappers.CategoryMapper;
 import com.nourallah.saasapp.repositories.CategoryRepository;
 import com.nourallah.saasapp.requests.CategoryRequest;
@@ -31,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void create(final CategoryRequest request) {
         if(categoryRepository.findByNameIgnoreCase(request.getName()).isPresent()){
             log.info("Category already exists");
-            throw new RuntimeException("Category already exists !"); // TODO custom exception
+            throw new DuplicateResourceException("Category already exists !"); // TODO custom exception
         }
         this.categoryRepository.save(categoryMapper.toEntity(request));
     }
@@ -47,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
         // exist by name
         if(categoryExist.get().getName().equals(request.getName())){
             log.info("Category already exists with the same name");
-            throw new RuntimeException("Category already exists !");
+            throw new DuplicateResourceException("Category already exists !");
         }
 
         final Category categoryToUpdate = categoryMapper.toEntity(request);
@@ -75,10 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(String id) {
-
         final Category category = this.categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category does not exist"));
         this.categoryRepository.delete(category);
-
-
     }
 }
