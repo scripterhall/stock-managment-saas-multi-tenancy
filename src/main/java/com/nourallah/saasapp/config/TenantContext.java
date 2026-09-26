@@ -16,6 +16,8 @@ package com.nourallah.saasapp.config;
 public class TenantContext {
 
     private static final ThreadLocal<String> CURRENT_TENANT = new ThreadLocal<>();
+    private static final ThreadLocal<String> CURRENT_SCHEMA = new ThreadLocal<>();
+
 
     /**
      * Definit l'identifiant du tenant pour le thread courant .
@@ -37,6 +39,19 @@ public class TenantContext {
      */
     public static void clear() {
         CURRENT_TENANT.remove();
+        CURRENT_SCHEMA.remove();
     }
+
+
+
+
+    public static void setCurrentSchema(String schemaName) {
+        CURRENT_SCHEMA.set(schemaName);
+    }
+
+    public static String getCurrentSchema() {
+        return CURRENT_SCHEMA.get();
+    }
+
 
 }
