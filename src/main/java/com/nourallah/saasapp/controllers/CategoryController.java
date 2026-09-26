@@ -4,6 +4,7 @@ import com.nourallah.saasapp.common.PageResponse;
 import com.nourallah.saasapp.requests.CategoryRequest;
 import com.nourallah.saasapp.responses.CategoryResponse;
 import com.nourallah.saasapp.services.CategoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/categories")
+@Tag(name = "Category" , description = "Category API")
 public class CategoryController {
 
     private final CategoryService service;

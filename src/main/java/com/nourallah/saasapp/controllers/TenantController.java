@@ -3,6 +3,7 @@ package com.nourallah.saasapp.controllers;
 import com.nourallah.saasapp.common.PageResponse;
 import com.nourallah.saasapp.responses.TenantResponse;
 import com.nourallah.saasapp.services.TenantService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/tenants")
 @RequiredArgsConstructor
+@Tag(name = "Tenant" , description = "Tenant API")
 public class TenantController {
 
     private final TenantService service;
